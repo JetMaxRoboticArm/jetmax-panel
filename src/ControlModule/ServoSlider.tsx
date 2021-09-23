@@ -45,18 +45,23 @@ export default class ServoSlider extends React.Component<ServoSliderProps, Servo
             this.props.onValueChange(newValue)
         }
     }
+
     handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         this.setState({value: event.target.value === '' ? '' : Number(event.target.value)})
-        if (this.props.onValueChange) {
-            this.props.onValueChange(Number(event.target.value))
-        }
     }
 
     handleBlur(event: any) {
         if (this.state.value < this.props.min!) {
             this.setState({value: this.props.min!})
+            if (this.props.onValueChange)
+                this.props.onValueChange(Number(this.props.min))
         } else if (this.state.value > this.props.max!) {
             this.setState({value: this.props.max!})
+            if (this.props.onValueChange)
+                this.props.onValueChange(Number(this.props.max))
+        } else {
+            if (this.props.onValueChange)
+                this.props.onValueChange(Number(event.target.value))
         }
     }
 

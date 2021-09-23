@@ -152,6 +152,7 @@ class JetMax {
 
     get_actionset_list(callback: ros_callback) {
         this.get_actionset_list_srv.callService(new ROSLIB.ServiceRequest(), (msg: any) => {
+            console.log(msg.action_sets)
             this.actionset_list = msg.action_sets
             callback(this.actionset_list)
         })
@@ -245,7 +246,6 @@ class JetMax {
                 break;
             }
             case 2: {
-                console.log("CC")
                 this.set_serial_servo2_ws_publisher.publish(msg)
                 break;
             }
