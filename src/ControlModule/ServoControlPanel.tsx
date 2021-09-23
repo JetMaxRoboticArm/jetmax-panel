@@ -4,6 +4,7 @@ import {Button, Typography} from "@material-ui/core";
 import ServoSlider from "./ServoSlider";
 import styles from "./styles";
 import jetmax from "../jetmax_rpc";
+import { useTranslation } from 'react-i18next';
 
 interface ServoControlPanelProps {
     onValueChange?: (axis: string, value: number) => void;
@@ -25,10 +26,11 @@ const useStyles = makeStyles({
 
 
 export default function ServoControlPanel(props: ServoControlPanelProps) {
+    const {t} = useTranslation()
     const classes = useStyles(props)
     return (
         <div className={classes.root}>
-            <Typography className={`${classes.title}`}>Joint Control</Typography>
+            <Typography className={`${classes.title}`}>{t("joint_control")}</Typography>
             <div className={classes.sliderWidget}>
                 <ServoSlider label="ID:1" onValueChange={(newValue) => {
                     jetmax.set_serial_servo_with_speed(1, newValue, 100)
@@ -36,7 +38,6 @@ export default function ServoControlPanel(props: ServoControlPanelProps) {
             </div>
             <div className={classes.sliderWidget}>
                 <ServoSlider label="ID:2" onValueChange={(newValue) => {
-                    console.log("AA")
                     jetmax.set_serial_servo_with_speed(2, newValue, 100)
                 }}/>
             </div>
@@ -46,7 +47,7 @@ export default function ServoControlPanel(props: ServoControlPanelProps) {
                 }}/>
             </div>
             <Button className={classes.sliderWidget} style={{marginBottom: '10px'}} variant="contained"
-                    disableElevation>About Servo ID</Button>
+                    disableElevation>{t("about_servo_id")}</Button>
         </div>
     )
 }

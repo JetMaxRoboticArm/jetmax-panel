@@ -4,6 +4,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import SuckerControlPanel from "./SuckerControlPanel";
 import styles from './styles'
+import {useTranslation} from 'react-i18next';
 
 const theme = createTheme(
     {
@@ -118,6 +119,7 @@ function TabPanel(props: TabPanelProps) {
 
 
 export default function EndEffectorPanel() {
+    const {t} = useTranslation()
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
@@ -127,12 +129,12 @@ export default function EndEffectorPanel() {
 
     return (
         <div className={classes.root}>
-            <h2 className={classes.titleLabel}>End Effector Control</h2>
+            <h2 className={classes.titleLabel}>{t("end_effector.title")}</h2>
             <MuiThemeProvider theme={theme}>
                 <AntTabs value={value} onChange={handleChange}>
-                    <AntTab label="Suction Cup" style={{marginLeft: '10px'}}/>
-                    <AntTab label="Small Gripper"/>
-                    <AntTab label="Big Gripper" style={{borderRadius: '0px 10px 0px 0px'}}/>
+                    <AntTab label={t('end_effector.types.suction_cup')} style={{marginLeft: '10px'}}/>
+                    <AntTab label={t('end_effector.types.small_gripper')}/>
+                    <AntTab label={t('end_effector.types.big_gripper')} style={{borderRadius: '0px 10px 0px 0px'}}/>
                 </AntTabs>
             </MuiThemeProvider>
             <TabPanel value={value} index={0} className={classes.tab_panel}>

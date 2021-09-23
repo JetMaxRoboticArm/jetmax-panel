@@ -5,6 +5,7 @@ import mouse_area from "../assets/mouse_area.svg"
 import styles from "./styles"
 import StyledSlider from "./StyledSlider";
 import jetmax from '../jetmax_rpc'
+import {useTranslation} from 'react-i18next'
 
 interface Props {
     onRun?: (x: number, y: number, z: number, speed: number) => void;
@@ -39,13 +40,14 @@ const useStyles = makeStyles({
 )
 
 export default function MouseControlPanel(props: Props) {
+    const {t} = useTranslation()
     const classes = useStyles()
     const canvasRef = useRef<HTMLCanvasElement>(document.createElement('canvas'))
     const pos = useRef<number[]>(jetmax.status.position)
     const [zAxis, setZAXis] = useState<number>(100)
     return (
         <div className={classes.root}>
-            <Typography className={classes.title}>Mouse Control</Typography>
+            <Typography className={classes.title}>{t('mouse_control')}</Typography>
             <div className={classes.click_area}>
                 <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                     <img src={mouse_area} alt={'mouse_area'} className={classes.image}

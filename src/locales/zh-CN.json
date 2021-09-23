@@ -1,0 +1,61 @@
+{
+  "add": "添加",
+  "delete": "删除",
+  "connect": "连接",
+  "disconnect": "断开",
+  "ip_address": "IP地址",
+  "remote_control": "机体遥控",
+  "action_set_editor": "动作组编辑",
+  "mouse_control": "鼠标控制",
+  "joint_control": "关节控制",
+  "about_servo_id": "关于舵机ID",
+  "arm_control": {
+    "title": "机械臂控制",
+    "reset": "复位",
+    "step": "步长",
+    "current": "当前位置"
+  },
+  "end_effector": {
+    "title": "末端执行器控制",
+    "types": {
+      "suction_cup": "吸盘",
+      "small_gripper": "小爪子",
+      "big_gripper": "大爪子"
+    },
+    "actions": {
+      "suck": "吸取",
+      "release": "放下",
+      "rotate": "旋转"
+    },
+    "status": {
+      "current_angle": "当前角度",
+      "current_state": "当前状态"
+    }
+  },
+  "editor": {
+    "title": "JetMax 动作组编辑",
+    "actionset": "动作组",
+    "add": "添加",
+    "insert": "插入",
+    "replace": "替换",
+    "delete": "删除",
+    "remove": "删除",
+    "download": "下载",
+    "upload": "上传",
+    "play": "运行",
+    "step": "单步",
+    "stop": "停止",
+    "clear": "清除",
+    "open": "打开",
+    "save": "保存",
+    "new": "新建",
+    "more": "更多",
+    "duration": "时间",
+    "auto_repeat": "自动循环",
+    "table_items": {
+      "index": "序号",
+      "duration": "时间",
+      "sucker": "吸盘"
+    }
+  }
+}

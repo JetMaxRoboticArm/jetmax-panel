@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
 import {CssBaseline} from "@material-ui/core";
@@ -7,6 +7,7 @@ import RemoteControlMode from "./RemoteConrolMode";
 import ActionSetEditor from "./ActionSetEditor";
 import ServoConfigMode from "./ServoConfigMode";
 import jetmax from "./jetmax_rpc";
+import './i18n';
 
 function App() {
     useEffect(() => {

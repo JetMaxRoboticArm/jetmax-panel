@@ -5,6 +5,7 @@ import DirectionPads from './DirectionPads'
 import styles from './styles'
 import comm_styles from '../Common'
 import jetmax from '../jetmax_rpc'
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     onValueChange?: (axis: string, value: number) => void;
@@ -19,7 +20,11 @@ const useStyles = makeStyles({
         },
         btn: styles.button,
         label: styles.label,
-        labelInSlot: styles.labelInSlot,
+        labelInSlot: {
+            ...styles.labelInSlot,
+            marginLeft: "10px",
+            marginRight: "10px"
+        },
 
         padsWidget: {
             ...styles.widget,
@@ -64,6 +69,7 @@ const useStyles = makeStyles({
 )
 
 export default function ArmControlPanel(props: Props) {
+    const {t} = useTranslation()
     const classes = useStyles(props)
     const timerRef = useRef<any>(null)
     const timeStamp = useRef<number>(0)
@@ -123,7 +129,7 @@ export default function ArmControlPanel(props: Props) {
 
     return (
         <div className={classes.root}>
-            <Typography className={classes.title}>Robot Arm Control</Typography>
+            <Typography className={classes.title}>{t("arm_control.title")}</Typography>
             <div className={classes.padsWidget}>
                 <DirectionPads onMouseDown={mouseDownCb} onMouseUp={mouseUpCb} onResetClicked={onResetClicked}/>
                 <div className={classes.zBtnWidget}>
@@ -139,11 +145,11 @@ export default function ArmControlPanel(props: Props) {
                 </div>
             </div>
             <div className={classes.stepWidget}>
-                <span className={classes.label}>Step:</span>
+                <span className={classes.label}>{t("arm_control.step")}:</span>
                 {step_buttons()}
             </div>
             <div className={classes.stepWidget}>
-                <span className={`${classes.label}`}>Current:</span>
+                <span className={`${classes.label}`}>{t("arm_control.current")}:</span>
                 <div className={classes.positionSlot}>
                     <span className={classes.labelInSlot}>X:{jetmax.status.position[0].toFixed(2)}mm</span>
                     <span className={classes.labelInSlot}>Y:{jetmax.status.position[1].toFixed(2)}mm</span>

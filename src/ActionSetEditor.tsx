@@ -8,14 +8,16 @@ import EndEffectorPanel from "./ControlModule/EndEffectorPanel";
 import MouseControlPanel from "./ControlModule/MouseControlPanel";
 import ActionSetTable from "./ActionSetTable";
 import jetmax from './jetmax_rpc'
+import { useTranslation } from 'react-i18next';
 
 
 export default function ActionSetEditor() {
-    let [enableControl, setEnableControl] = useState(true)
+    const {t} = useTranslation()
+    const [enableControl, setEnableControl] = useState(true)
     return (
         <div className={`App`}>
             <CssBaseline/>
-            <Header data='JetMax Action Set Editor'/>
+            <Header data={t("editor.title")}/>
             <div className={`main_region`}>
                 <div className={`panel_box_left`}>
                     <ActionSetTable/>

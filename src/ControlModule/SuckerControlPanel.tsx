@@ -4,6 +4,7 @@ import styles from "./styles"
 import {Button} from "@material-ui/core";
 import StyledSlider from "./StyledSlider";
 import jetmax from "../jetmax_rpc";
+import {useTranslation} from 'react-i18next';
 
 const useStyles = makeStyles({
     root: {
@@ -39,6 +40,7 @@ const useStyles = makeStyles({
 
 
 export default function SuckerControlPanel() {
+    const {t} = useTranslation()
     const classes = useStyles();
     const [angle, setAngle] = useState<number>(90);
     const [value, setValue] = useState(Date.now())
@@ -54,7 +56,7 @@ export default function SuckerControlPanel() {
     return (
         <div style={{display: "block", margin: "10px auto"}}>
             <div className={classes.sug}>
-                <label>Rotate:</label>
+                <label style={{minWidth: "50px", textAlign: "left"}}>{t("end_effector.actions.rotate")}:</label>
                 <StyledSlider style={{margin: "0 15px 0 15px"}}
                               min={0}
                               max={180}
@@ -70,25 +72,25 @@ export default function SuckerControlPanel() {
                 />
             </div>
             <div className={classes.sug}>
-                <label>Suck/Release:</label>
+                <label>{t("end_effector.actions.suck")}/{t("end_effector.actions.release")}:</label>
                 <Button className={classes.button} onClick={() => {
                     jetmax.set_sucker(true)
-                }}>Suck</Button>
+                }}>{t("end_effector.actions.suck")}</Button>
                 <Button className={classes.button} onClick={() => {
                     jetmax.set_sucker(false)
                     setValue(value)
-                }}>Release</Button>
+                }}>{t("end_effector.actions.release")}</Button>
             </div>
             <div className={classes.sug}>
                 <div style={{display: 'flex', alignItems: "center", justifyContent: 'center'}}>
-                    <label>Current angle:</label>
+                    <label> {t("end_effector.status.current_angle")}:</label>
                     <div className={classes.angleSlot}>
                         <span className={classes.angle}>{jetmax.status.pwm_servos[0]}</span>
                     </div>
                 </div>
                 <div style={{display: 'flex', alignItems: "center", justifyContent: 'center'}}>
-                    <label>Current state: </label>
-                    <span className={classes.suckerState}>{jetmax.status.sucker ? "Sucking" : "Released"}</span>
+                    <label>{t("end_effector.status.current_state")}: </label>
+                    <span className={classes.suckerState}>{t(jetmax.status.sucker ? "end_effector.actions.suck" : "end_effector.actions.release")}</span>
                 </div>
             </div>
         </div>

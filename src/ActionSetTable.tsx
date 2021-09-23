@@ -14,6 +14,7 @@ import jetmax from "./jetmax_rpc";
 import ActionSetNewFile from './ActionSetNewFile'
 import RemoveFileDialog from "./ActionSetRemoveFile";
 import ComfirmationDialog from './ConfirmationDialog';
+import {useTranslation} from 'react-i18next';
 
 interface Data {
     duration: number
@@ -39,14 +40,14 @@ interface HeadCell {
 }
 
 const headCells: HeadCell[] = [
-    {id: 'index', numeric: false, disablePadding: true, label: 'INDEX'},
-    {id: 'duration', numeric: false, disablePadding: true, label: 'DURATION'},
+    {id: 'index', numeric: false, disablePadding: true, label: 'editor.table_items.index'},
+    {id: 'duration', numeric: false, disablePadding: true, label: 'editor.table_items.duration'},
     {id: 'x', numeric: true, disablePadding: false, label: 'X'},
     {id: 'y', numeric: true, disablePadding: false, label: 'Y'},
     {id: 'z', numeric: true, disablePadding: false, label: 'Z'},
     {id: 'pwm1', numeric: true, disablePadding: false, label: 'PWM1'},
     {id: 'pwm2', numeric: true, disablePadding: false, label: 'PWM2'},
-    {id: 'sucker', numeric: true, disablePadding: false, label: 'SUCKER'},
+    {id: 'sucker', numeric: true, disablePadding: false, label: 'editor.table_items.sucker'},
 ];
 
 
@@ -130,7 +131,7 @@ function collect_data(duration: number): Data {
 }
 
 export default function EnhancedTable() {
-
+    const {t} = useTranslation()
     const classes = useStyles();
     const [selected, setSelected] = React.useState<number>(-1);
     const [value, setValue] = React.useState<number>(0)
@@ -173,7 +174,7 @@ export default function EnhancedTable() {
                                         align={'center'}
                                         style={{fontWeight: 'bold', height: '28px', width: '28px'}}
                                     >
-                                        {headCell.label}
+                                        {t(headCell.label)}
                                     </TableCell>
                                 ))}
                             </TableRow>
@@ -225,7 +226,7 @@ export default function EnhancedTable() {
                                 width: "158px"
                             }}
                         >
-                            <span style={{textAlign: "center", alignItems: "center"}}>Duration:</span>
+                            <span style={{textAlign: "center", alignItems: "center"}}>{t("editor.duration")}:</span>
                             <TextField
                                 id="duration_input"
                                 size="small"
@@ -248,19 +249,19 @@ export default function EnhancedTable() {
                             let new_row = collect_data(parseFloat(duration))
                             rows.push(new_row)
                             setSelected(rows.length - 1)
-                        }}>Add</Button>
+                        }}>{t("editor.add")}</Button>
 
                         <Button className={classes.button} onClick={() => {
                             let new_row = collect_data(parseFloat(duration))
                             rows.splice(selected, 0, new_row)
                             setValue(Date.now())
-                        }}>Insert</Button>
+                        }}>{t("editor.insert")}</Button>
 
                         <Button className={classes.button} onClick={() => {
                             let new_row = collect_data(parseFloat(duration))
                             rows.splice(selected, 1, new_row)
                             setValue(Date.now())
-                        }}>Replace</Button>
+                        }}>{t("editor.replace")}</Button>
 
                         <Button className={classes.button} onClick={() => {
                             rows.splice(selected, 1)
@@ -269,28 +270,28 @@ export default function EnhancedTable() {
                             } else {
                                 setValue(Date.now())
                             }
-                        }}>Delete</Button>
+                        }}>{t("editor.delete")}</Button>
 
                     </div>
                     <div style={{display: "flex", flexGrow: 1, justifyContent: "space-around"}}>
                         <FormControlLabel control={<Checkbox checked={autoRepeat} onChange={() => {
                             setAutoRepeat(!autoRepeat)
-                        }}/>} label="AutoRepeat" style={{width: "153px"}}/>
+                        }}/>} label={t("editor.auto_repeat")} style={{width: "153px"}}/>
                         <Button className={classes.button} onClick={() => {
                             jetmax.run_actionset_online(gen_action_set_str(rows), autoRepeat ? 999999 : 1)
-                        }}>Play</Button>
+                        }}>{t("editor.play")}</Button>
                         <Button className={classes.button} onClick={() => {
                             console.log(selected)
                             if (selected >= 0 && selected < rows.length) {
                                 jetmax.run_actionset_online(gen_action_set_str([rows[selected],]), 1)
                             }
-                        }}>Step</Button>
+                        }}>{t("editor.step")}</Button>
                         <Button className={classes.button} onClick={() => {
                             jetmax.stop_actionset_online()
-                        }}>Stop</Button>
+                        }}>{t("editor.stop")}</Button>
                         <Button className={classes.button} onClick={() => {
                             setShowConfirm(true)
-                        }}>Clear</Button>
+                        }}>{t("editor.clear")}</Button>
                     </div>
                 </div>
             </Paper>
@@ -307,7 +308,7 @@ export default function EnhancedTable() {
                         justifyItems: "center",
                         width: "250px"
                     }}>
-                        <span style={{textAlign: "center", alignItems: "center"}}>ActionSet:</span>
+                        <span style={{textAlign: "center", alignItems: "center"}}>{t("editor.actionset")}:</span>
                         <Select
                             value={actionSetFile}
                             displayEmpty style={{flexGrow: 1}}
@@ -315,7 +316,7 @@ export default function EnhancedTable() {
                                 setActionSetFile(event.target.value as number)
                             }}>
                             {jetmax.actionset_list.map((value, index, array) => (
-                                <MenuItem value={index}>{value}</MenuItem>))}
+                                <MenuItem key={index} value={index}>{value}</MenuItem>))}
                         </Select>
                     </div>
                     <Button className={classes.file_button} onClick={() => {
@@ -325,20 +326,20 @@ export default function EnhancedTable() {
                                 setRows(data.data as Data[])
                             }
                         })
-                    }}>Open</Button>
+                    }}>{t("editor.open")}</Button>
                     <Button className={classes.file_button} onClick={() => {
                         let file_name = jetmax.actionset_list[actionSetFile]
                         let data = gen_action_set_str(rows, 2)
                         jetmax.save_actionset(file_name, data, () => {
                             setValue(Date.now())
                         })
-                    }}> Save</Button>
+                    }}>{t("editor.save")}</Button>
                     <Button className={classes.file_button} onClick={() => {
                         setNewFileDialog(true)
-                    }}>New</Button>
+                    }}>{t("editor.new")}</Button>
                     <Button className={classes.file_button} onClick={(event) => {
                         setAnchorEl(event.currentTarget)
-                    }}>More...</Button>
+                    }}>{t("editor.more")}...</Button>
                     <Menu id='file operation menu'
                           anchorEl={anchorEl}
                           keepMounted
@@ -351,34 +352,38 @@ export default function EnhancedTable() {
                             setAnchorEl(null)
                             setRemoveFileDialog(true)
                         }
-                        }>Remove</MenuItem>
+                        }>{t("editor.remove")}</MenuItem>
                         <MenuItem onClick={() => {
                             setAnchorEl(null)
-                        }}>Download</MenuItem>
+                        }}>{t("editor.download")}</MenuItem>
                         <MenuItem onClick={() => {
                             setAnchorEl(null)
-                        }}>Upload</MenuItem>
+                        }}>{t("editor.upload")}</MenuItem>
                     </Menu>
                 </div>
             </Paper>
-            <ActionSetNewFile open={newFileDialog} onClose={(file_name, btn) => {
-                setNewFileDialog(false)
-                if (btn === 2) {
-                    let data = gen_action_set_str(rows, 2)
-                    jetmax.save_actionset(file_name, data, () => {
-                        let index = jetmax.actionset_list.indexOf(file_name)
-                        setActionSetFile(index)
-                    })
-                }
-            }}/>
+            <ActionSetNewFile open={newFileDialog}
+                              onClose={(file_name, btn) => {
+                                  setNewFileDialog(false)
+                                  if (btn === 2) {
+                                      let data = gen_action_set_str(rows, 2)
+                                      jetmax.save_actionset(file_name, data, () => {
+                                          setValue(Date.now())
+                                          let index = jetmax.actionset_list.indexOf(file_name)
+                                          setActionSetFile(index)
+                                      })
+                                  }
+                              }}/>
             <RemoveFileDialog open={removeFileDialog} file_name={jetmax.actionset_list[actionSetFile]}
                               onClose={(btn) => {
                                   setRemoveFileDialog(false)
-                                  console.log(btn)
                                   if (btn === 2) {
                                       let file_name = jetmax.actionset_list[actionSetFile]
                                       console.log(file_name)
                                       jetmax.remove_actionset(file_name, () => {
+                                          if (actionSetFile >= jetmax.actionset_list.length) {
+                                              setActionSetFile(jetmax.actionset_list.length - 1)
+                                          }
                                           setValue(Date.now())
                                       })
                                   }

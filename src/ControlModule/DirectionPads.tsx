@@ -1,6 +1,7 @@
 import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
 import styles from '../Common'
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
         home: {
@@ -82,6 +83,7 @@ const useStyles = makeStyles({
     }
 )
 export default function DirectionButton(props: any) {
+    const {t} = useTranslation()
     const classes = useStyles()
     const {onResetClicked, ...others} = props
     return (
@@ -90,7 +92,7 @@ export default function DirectionButton(props: any) {
             <span className={`${classes.spans} ${classes.span_right}`}>X+</span>
             <span className={`${classes.spans} ${classes.span_bottom}`}>Y-</span>
             <span className={`${classes.spans} ${classes.span_left}`}>X-</span>
-            <span className={`${classes.spans} ${classes.span_center}`}>Reset</span>
+            <span className={`${classes.spans} ${classes.span_center}`}>{t("arm_control.reset")}</span>
             <div className={classes.box}>
                 <div>
                     <Button className={`${classes.btn} ${classes.btn_top}`} {...others}>y+</Button>

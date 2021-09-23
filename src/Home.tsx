@@ -10,6 +10,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import common_styles from './Common';
 import cookies from 'js-cookie';
 import jetmax from "./jetmax_rpc";
+import {useTranslation} from 'react-i18next'
 
 
 const useStyles = makeStyles({
@@ -40,6 +41,7 @@ const useStyles = makeStyles({
 
 
 export default function HomePage() {
+    const {t, i18n} = useTranslation()
     const classes = useStyles()
     const history = useHistory()
     const count = useRef<number>(0)
@@ -68,18 +70,20 @@ export default function HomePage() {
         <div className={`App`}>
             <CssBaseline/>
             <Header data='JetMax'/>
+            <button
+                onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')}>{i18n.language === 'en' ? 'zh' : 'en'}</button>
             <div className={classes.homeMainRegion}>
                 <div style={{display: 'block'}}>
                     <div className={classes.modeCardCon}>
-                        <ModeCard label="Remote Control" image={JpgControl} onClick={(e) => {
+                        <ModeCard label={t("remote_control")} image={JpgControl} onClick={(e) => {
                             history.push('/control_mode')
                         }}/>
-                        <ModeCard label="Action Set Editor" image={JpgActionSet} onClick={(e) => {
+                        <ModeCard label={t("action_set_editor")} image={JpgActionSet} onClick={(e) => {
                             history.push('/action_set_editor')
                         }}/>
                     </div>
                     <div className={classes.ipInput}>
-                        <TextField id="outlined-basic" size="small" label="IP Address" variant="outlined"
+                        <TextField id="outlined-basic" size="small" label={t("ip_address")} variant="outlined"
                                    value={hostname} onChange={handleChange}/>
                         <Button className={classes.button}
                                 variant="outlined"
@@ -87,7 +91,7 @@ export default function HomePage() {
                                 onClick={() => {
                                     if (jetmax.connection) {
                                         jetmax.ros_client.close()
-                                        jetmax.connection=false
+                                        jetmax.connection = false
                                         setValue(value + 1)
                                     } else {
                                         setConnectDisable(true)
@@ -97,7 +101,7 @@ export default function HomePage() {
                                         jetmax.ros_client.connect("ws://" + hostname + ":9090")
                                     }
                                 }}
-                        >{jetmax.connection ? 'Disconnect' : 'Connect'}</Button>
+                        >{t(jetmax.connection ? 'disconnect' : 'connect')}</Button>
                     </div>
                 </div>
             </div>

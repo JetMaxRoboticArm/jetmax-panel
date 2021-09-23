@@ -1,0 +1,61 @@
+{
+  "add": "Add",
+  "delete": "Delete",
+  "connect": "Connect",
+  "disconnect": "Disconnect",
+  "ip_address": "IP Address",
+  "remote_control": "Remote Control",
+  "action_set_editor": "Action Set Editor",
+  "joint_control": "Joint Control",
+  "mouse_control": "Mouse Control",
+  "about_servo_id": "ABOUT SERVO ID",
+  "arm_control": {
+    "title": "Robot Arm Control",
+    "reset": "Reset",
+    "step": "Step",
+    "current": "Current"
+  },
+  "end_effector": {
+    "title": "End Effector Control",
+    "types": {
+      "suction_cup": "Suction Cup",
+      "small_gripper": "Small Gripper",
+      "big_gripper": "Big Gripper"
+    },
+    "actions": {
+      "suck": "Suck",
+      "release": "Release",
+      "rotate": "Rotate"
+    },
+    "status": {
+      "current_angle": "Current Angle",
+      "current_state": "Current State"
+    }
+  },
+  "editor": {
+    "title": "JetMax Action Set Editor",
+    "actionset": "ActionSet",
+    "add": "Add",
+    "insert": "Insert",
+    "replace": "Replace",
+    "delete": "Delete",
+    "remove": "Remove",
+    "download": "Download",
+    "upload": "Upload",
+    "play": "Play",
+    "step": "Step",
+    "stop": "Stop",
+    "clear": "Clear",
+    "open": "Open",
+    "save": "Save",
+    "new": "New",
+    "more": "More",
+    "duration": "Duration",
+    "auto_repeat": "AutoRepeat",
+    "table_items": {
+      "index": "INDEX",
+      "duration": "DURATION",
+      "sucker": "SUCKER"
+    }
+  }
+}
