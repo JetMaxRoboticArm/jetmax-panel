@@ -25,7 +25,9 @@
     "actions": {
       "suck": "Suck",
       "release": "Release",
-      "rotate": "Rotate"
+      "rotate": "Rotate",
+      "open": "Open",
+      "close": "Close"
     },
     "status": {
       "current_angle": "Current Angle",

@@ -5,6 +5,8 @@ import Tab from '@material-ui/core/Tab';
 import SuckerControlPanel from "./SuckerControlPanel";
 import styles from './styles'
 import {useTranslation} from 'react-i18next';
+import SmallGripperControlPanel from "./SmallGripper";
+import BigGripperControlPanel from "./BigGripper";
 
 const theme = createTheme(
     {
@@ -133,7 +135,7 @@ export default function EndEffectorPanel() {
             <MuiThemeProvider theme={theme}>
                 <AntTabs value={value} onChange={handleChange}>
                     <AntTab label={t('end_effector.types.suction_cup')} style={{marginLeft: '10px'}}/>
-                    <AntTab label={t('end_effector.types.small_gripper')}/>
+                    <AntTab label={t('end_effector.types.small_gripper')} style={{marginLeft: '0px'}}/>
                     <AntTab label={t('end_effector.types.big_gripper')} style={{borderRadius: '0px 10px 0px 0px'}}/>
                 </AntTabs>
             </MuiThemeProvider>
@@ -141,8 +143,10 @@ export default function EndEffectorPanel() {
                 <SuckerControlPanel/>
             </TabPanel>
             <TabPanel value={value} index={1} className={classes.tab_panel}>
+                <SmallGripperControlPanel/>
             </TabPanel>
             <TabPanel value={value} index={2} className={classes.tab_panel}>
+                <BigGripperControlPanel/>
             </TabPanel>
         </div>
     )

@@ -25,7 +25,9 @@
     "actions": {
       "suck": "吸取",
       "release": "放下",
-      "rotate": "旋转"
+      "rotate": "旋转",
+      "open": "松",
+      "close": "紧"
     },
     "status": {
       "current_angle": "当前角度",
